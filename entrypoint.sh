@@ -12,8 +12,12 @@ if [ "$DATABASE" = "postgres" ]; then
     echo "PostgreSQL started"
 fi
 
-python manage.py flush --no-input
-python manage.py migrate
+# you may want to comment out the database flush and migrate commands in the entrypoint.sh script so they don't run on every container start or re-start
+# you can run them manually, after the containers spin up
+# docker-compose exec web python manage.py flush --no-input
+
+#python manage.py flush --no-input
+#python manage.py migrate
 
 # Execute the command provided as arguments to the script
 exec "$@"
