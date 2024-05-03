@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   web:
-    build: ./
+    build: 
+      context: ./
+      dockerfile: Dockerfile
     command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
     ports:
       - 8000:8000
@@ -14,11 +16,7 @@ services:
     image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    # env_file:
-    #   - ./.env.prod
-    environment:
-      - POSTGRES_USER=prod_django
-      - POSTGRES_PASSWORD=prod_django
-      - POSTGRES_DB=prod_django
+    env_file:
+      - ./.env.prod.db
 volumes:
   postgres_data:
